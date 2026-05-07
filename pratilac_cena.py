@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Pratilac cena oglasa - polovniautomobili.com
-Šalje email notifikaciju (preko Resend.com) kad cena padne.
+Å alje email notifikaciju (preko Resend.com) kad cena padne.
 """
 
 import json
@@ -17,14 +17,14 @@ except ImportError:
     print("Pokreni: pip install requests beautifulsoup4")
     exit(1)
 
-# ─────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââ
 # KONFIGURACIJA
-# ─────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââ
 
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
 EMAIL_PRIMALAC = os.environ.get("EMAIL_PRIMALAC", "")
 
-# Lista oglasa koje pratiš
+# Lista oglasa koje pratiÅ¡
 OGLASI = [
     "https://www.polovniautomobili.com/auto-oglasi/28482744/volvo-xc60-20b4-mhev-r-design?attp=p9_pv0_pc0_pl11_plv0",
     "https://www.polovniautomobili.com/auto-oglasi/28877577/volvo-xc60-20-awd?attp=p9_pv0_pc0_pl11_plv0",
@@ -36,9 +36,10 @@ OGLASI = [
     "https://www.polovniautomobili.com/auto-oglasi/28733983/volvo-xc60-inscription-m-hev?attp=p9_pv0_pc0_pl11_plv0",
     "https://www.polovniautomobili.com/auto-oglasi/28837990/volvo-xc60-20-b4-momentum-pro?attp=p9_pv0_pc0_pl11_plv0",
     "https://www.polovniautomobili.com/auto-oglasi/29091836/skoda-kodiaq-style-20?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28808020/volvo-xc60-b4-d-awd-restajling?attp=p1_pv0_pc1_pl1_plv0",
 ]
 
-# ─────────────────────────────────────────────
+# âââââââââââââââââââââââââââââââââââââââââââââ
 
 BAZA_FAJL = "cene_oglasa.json"
 PAUZA     = 4
@@ -100,7 +101,7 @@ def proveri_oglas(url):
         resp = requests.get(url, headers=HEADERS, timeout=15)
         resp.raise_for_status()
     except requests.RequestException as e:
-        print(f"  ⚠️  Greška: {e}")
+        print(f"  â ï¸  GreÅ¡ka: {e}")
         return None, None, False
 
     soup = BeautifulSoup(resp.text, "html.parser")
@@ -113,12 +114,12 @@ def proveri_oglas(url):
 def formatiraj_cenu(cena):
     if cena is None:
         return "N/A"
-    return f"{cena:,}".replace(",", ".") + " €"
+    return f"{cena:,}".replace(",", ".") + " â¬"
 
 
 def posalji_email(snizenja):
     if not RESEND_API_KEY or not EMAIL_PRIMALAC:
-        print("⚠️  RESEND_API_KEY ili EMAIL_PRIMALAC nisu postavljeni.")
+        print("â ï¸  RESEND_API_KEY ili EMAIL_PRIMALAC nisu postavljeni.")
         return
 
     vreme = datetime.now().strftime("%d.%m.%Y %H:%M")
@@ -139,14 +140,14 @@ def posalji_email(snizenja):
             {formatiraj_cenu(s['nova_cena'])}
           </td>
           <td style="padding:12px; border-bottom:1px solid #eee; color:#c62828;">
-            ▼ {formatiraj_cenu(s['razlika'])} ({s['procenat']:.1f}%)
+            â¼ {formatiraj_cenu(s['razlika'])} ({s['procenat']:.1f}%)
           </td>
         </tr>
         """
 
     html = f"""
     <html><body style="font-family:Arial,sans-serif; max-width:700px; margin:auto; padding:20px;">
-      <h2 style="color:#1a73e8;">🚗 Sniženje cene oglasa!</h2>
+      <h2 style="color:#1a73e8;">ð SniÅ¾enje cene oglasa!</h2>
       <p style="color:#555;">Provera obavljena: <strong>{vreme}</strong></p>
       <table width="100%" cellpadding="0" cellspacing="0"
              style="border-collapse:collapse; border:1px solid #eee; border-radius:8px;">
@@ -175,47 +176,47 @@ def posalji_email(snizenja):
         json={
             "from":    "Pratilac cena <onboarding@resend.dev>",
             "to":      [EMAIL_PRIMALAC],
-            "subject": f"🎉 Sniženje cene na Polovni automobili ({len(snizenja)} oglas(a))",
+            "subject": f"ð SniÅ¾enje cene na Polovni automobili ({len(snizenja)} oglas(a))",
             "html":    html,
         },
     )
 
     if response.status_code == 200:
-        print(f"✅ Email poslat na {EMAIL_PRIMALAC}")
+        print(f"â Email poslat na {EMAIL_PRIMALAC}")
     else:
-        print(f"❌ Greška pri slanju: {response.text}")
+        print(f"â GreÅ¡ka pri slanju: {response.text}")
 
 
 def pokreni_proveru():
     if not OGLASI:
-        print("⚠️  Dodaj URL-ove oglasa u listu OGLASI!")
+        print("â ï¸  Dodaj URL-ove oglasa u listu OGLASI!")
         return
 
     baza     = ucitaj_bazu()
     snizenja = []
     vreme    = datetime.now().strftime("%d.%m.%Y %H:%M")
 
-    print(f"\n🔍 Provera cena — {vreme}")
-    print(f"   Pratiš {len(OGLASI)} oglas(a)\n")
+    print(f"\nð Provera cena â {vreme}")
+    print(f"   PratiÅ¡ {len(OGLASI)} oglas(a)\n")
 
     for i, url in enumerate(OGLASI, 1):
         print(f"[{i}/{len(OGLASI)}] {url[:65]}...")
         naslov, cena, aktivan = proveri_oglas(url)
 
         if not aktivan:
-            print("  ❌ Oglas nedostupan\n")
+            print("  â Oglas nedostupan\n")
             continue
 
         stara_cena = baza.get(url, {}).get("cena")
-        print(f"  📋 {naslov}")
-        print(f"  💰 Cena: {formatiraj_cenu(cena)}", end="")
+        print(f"  ð {naslov}")
+        print(f"  ð° Cena: {formatiraj_cenu(cena)}", end="")
 
         if stara_cena is None:
-            print(" (novo, zapamćeno)")
+            print(" (novo, zapamÄeno)")
         elif cena and cena < stara_cena:
             razlika  = stara_cena - cena
             procenat = razlika / stara_cena * 100
-            print(f" ← bila {formatiraj_cenu(stara_cena)} 🎉 SNIŽENJE!")
+            print(f" â bila {formatiraj_cenu(stara_cena)} ð SNIÅ½ENJE!")
             snizenja.append({
                 "url":        url,
                 "naslov":     naslov,
@@ -225,7 +226,7 @@ def pokreni_proveru():
                 "procenat":   procenat,
             })
         elif cena and cena > stara_cena:
-            print(f" ← bila {formatiraj_cenu(stara_cena)} 📈 povećana")
+            print(f" â bila {formatiraj_cenu(stara_cena)} ð poveÄana")
         else:
             print(" (nepromenjena)")
 
@@ -243,10 +244,10 @@ def pokreni_proveru():
     sacuvaj_bazu(baza)
 
     if snizenja:
-        print(f"🎉 {len(snizenja)} sniženje(a) — šaljem email...")
+        print(f"ð {len(snizenja)} sniÅ¾enje(a) â Å¡aljem email...")
         posalji_email(snizenja)
     else:
-        print("ℹ️  Nema sniženja, email se ne šalje.")
+        print("â¹ï¸  Nema sniÅ¾enja, email se ne Å¡alje.")
 
 
 if __name__ == "__main__":
