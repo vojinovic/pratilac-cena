@@ -26,9 +26,16 @@ EMAIL_PRIMALAC = os.environ.get("EMAIL_PRIMALAC", "")
 
 # Lista oglasa koje pratiš
 OGLASI = [
-    # Dodaj svoje URL-ove ovde:
-    # "https://www.polovniautomobili.com/auto-oglasi/12345678/volkswagen-golf",
-    # "https://www.polovniautomobili.com/auto-oglasi/87654321/bmw-320d",
+    "https://www.polovniautomobili.com/auto-oglasi/28482744/volvo-xc60-20b4-mhev-r-design?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28877577/volvo-xc60-20-awd?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28054398/skoda-kodiaq-20-tdi-style-4x4?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/29012594/volvo-xc60?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28215893/volvo-xc60-b4-d-awd-r-design?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28451802/volvo-xc60-20b4mhev-momentum?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28597036/volvo-xc60-b4-awd-inscription?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28733983/volvo-xc60-inscription-m-hev?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/28837990/volvo-xc60-20-b4-momentum-pro?attp=p9_pv0_pc0_pl11_plv0",
+    "https://www.polovniautomobili.com/auto-oglasi/29091836/skoda-kodiaq-style-20?attp=p9_pv0_pc0_pl11_plv0",
 ]
 
 # ─────────────────────────────────────────────
