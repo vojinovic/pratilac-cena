@@ -2,8 +2,8 @@ name: Provera cena oglasa
 
 on:
   schedule:
-    # Pokreće se svakih 6 sati (00:00, 06:00, 12:00, 18:00 UTC = 01:00, 07:00, 13:00, 19:00 po Srbiji)
-    - cron: "0 */6 * * *"
+    # Pokreće se svakih 2 sata
+    - cron: "0 */2 * * *"
   workflow_dispatch:  # Možeš i ručno pokrenuti sa GitHub-a
 
 jobs:
